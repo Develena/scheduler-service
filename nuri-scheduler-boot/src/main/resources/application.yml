@@ -1,0 +1,65 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /sample
+
+spring:
+  profiles:
+    active: ${activeprofile:local}
+  application:
+    name: sample
+  main:
+    allow-bean-definition-overriding: true
+  #rabbitmq
+  rabbitmq:
+    host: ${rabbitmqhost:140.238.5.45}
+    port: ${rabbitmqport:5672}
+    username: ${rabbitmquser:aimir}
+    password: ${rabbitmqpass:aimirxhdgkqvmffotvha}
+  cloud:
+    stream:
+      bindings:
+        sampleOutputChannel:
+          destination: sample-event
+        sampleInputChannel:
+          destination: sample-event
+          content-type: application/json
+          group: sample-group
+      default:
+        content-type: application/json
+#mybatis config
+mybatis:
+  config-location: classpath:mybatis/mariadb/MapperConfig.xml
+---
+#jdbc
+spring:
+  profiles: local
+  datasource:
+    hikari:
+      dirver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://140.238.7.127:4006/ondemand
+      username: ${jdbcuser:ondemand}
+      password: ${jdbcpass:xhdgkqvmffotvhaondemand!!}
+      idleTimeout: 10000
+      connection-timeout: 10000
+      validation-timeout: 10000
+      maxLifetime: 580000
+      maximumPoolSize: 30
+      minimumIdle: 10
+
+---
+#jdbc
+spring:
+  profiles: default
+  datasource:
+    hikari:
+      dirver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: ${jdbcurl}
+      username: ${jdbcuser}
+      password: ${jdbcpass}
+      idleTimeout: 10000
+      connection-timeout: 10000
+      validation-timeout: 10000
+      maxLifetime: 580000
+      maximumPoolSize: 30
+      minimumIdle: 10

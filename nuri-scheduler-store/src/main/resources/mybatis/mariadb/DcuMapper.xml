@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--***********************************
+* @Copyright : nuritelecom
+* @ProjectName : nuri-ondemand-store
+* @FileName : DcuMapper.xml
+* @Author : kh.yoon
+* @Date : 2020-03
+************************************-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nuri.scheduler.store.mapper.DcuMapper">
+
+    <sql id="base_where_list">
+        <where>
+            <if test="dcuId != null" >
+                AND a.dcu_id = #{dcuId}
+            </if>
+            <if test="ip != null" >
+                AND a.ip = INET_ATON(#{ip})
+            </if>
+            <if test="nameSpace != null" >
+                AND a.name_space = #{nameSpace}
+            </if>
+            <if test="dcuStatus != null" >
+                AND a.dcu_status = #{dcuStatus}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findAllByCondition" resultType="dcuJpo" parameterType="dcuJpo">
+        SELECT
+            dcu_id as dcuId
+            , INET_NTOA(ip) as ip
+            , port as port
+            , name_space as nameSpace
+            , dcu_status as dcuStatus
+        FROM NURI_DCU a
+        <include refid="base_where_list" />
+    </select>
+
+    <select id="count" resultType="dcuJpo" parameterType="dcuJpo">
+        SELECT
+            count(*) as co
+        FROM NURI_DCU a
+        <include refid="base_where_list" />
+    </select>
+
+    <select id="findById" resultType="dcuJpo" parameterType="java.lang.String">
+        SELECT
+            dcu_id as dcuId
+            , INET_NTOA(ip) as ip
+            , port as port
+            , name_space as nameSpace
+            , dcu_status as dcuStatus
+        FROM NURI_DCU a
+        WHERE dcu_id = #{dcuId}
+    </select>
+
+    <select id="existDcuById" resultType="Integer" parameterType="java.lang.String">
+        SELECT
+        count(*) as co
+        FROM NURI_DCU a
+        WHERE dcu_id = #{dcuId}
+    </select>
+
+</mapper>
