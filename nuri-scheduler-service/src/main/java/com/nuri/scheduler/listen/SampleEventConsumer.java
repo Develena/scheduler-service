@@ -5,6 +5,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
 
+/* Listen : Queue.*/
 @Slf4j
 @EnableBinding(SampleEventSink.class)
 public class SampleEventConsumer {

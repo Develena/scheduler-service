@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/* ServiceImpl */
 @Service
 @Transactional
 public class SampleLogic implements SampleService {

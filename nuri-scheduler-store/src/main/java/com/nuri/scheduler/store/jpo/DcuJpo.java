@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/* Domain 에 정의된 DCU entity를 DB 작업을 위한 jpo 로 변환해서 사용. */
+/* Cdo : Create용 객체, Sdo : Search용 객체 */
 @Getter
 @Setter
 @NoArgsConstructor
